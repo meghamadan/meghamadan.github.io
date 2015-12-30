@@ -1,0 +1,142 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+    background: url("../img/bgpic.jpg") no-repeat center center fixed;
+     -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+img {
+    max-width: 100%;
+}
+
+h1{
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 700;
+}
+
+#div1 {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+#div1 header {
+    padding-top: 20%;
+}
+
+#div1 header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 2.5em;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    line-height: 1em;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+#div1 header p {
+    font-size: 1.0em;
+    display: inline-block;
+    margin-bottom: 5px;
+    padding: 0 8px;
+    letter-spacing: 0.1em;
+    line-height: 3em;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+
+/* Social icons */
+
+.social-icons .btn {
+    margin-right: 15px;
+}
+.social-icons {
+    padding-top: 10px;
+    margin-bottom: 35px;
+}
+.social-icons .btn.btn-clear {
+    border: 2px solid #000000;
+}
+.btn-round {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    padding: 0;
+}
+.btn-round i {
+    font-size: 20px;
+    top: 15px;
+    position: relative;
+}
+.btn.btn-clear {
+    border: 2px solid #fff;
+    color: #000000;
+    background: none;
+    background-color: none;
+    font-weight: bold;
+    -webkit-transition-duration: 0.8s;
+    -moz-transition-duration: 0.8s;
+    -o-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+}
+.btn.btn-clear:hover, .btn.btn-clear.selected {
+    background: #fff;
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+}
+.btn-twitter:hover {
+    color: #2BA9E0;
+}
+.btn-github:hover {
+    color: #4183c4;
+}
+.btn-tumblr:hover {
+    color: #35465c;
+}
+.btn-instagram:hover {
+    color: #BAB1A8;
+}
+.btn-linkedin:hover {
+    color: #015786;
+}
+.btn-youtube:hover {
+    color: #bb0000;
+}
+.btn-facebook:hover {
+    color: #204385;
+}
+
+/* ==========================================================================
+   Responsive Settings
+   ========================================================================== */
+
+@media(max-width:992px) {
+    #page-profile .profile {
+        margin: 0 auto 20px auto;
+    }
+}
+@media (max-width: 479px) {
+    #div1 header h1 {
+        font-size: 2em;
+    }
+    #div1 header p {
+        font-size: 1em;
+        line-height: 3em;
+    }
+
+}
