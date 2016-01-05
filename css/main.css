@@ -1,19 +1,26 @@
-html, body {
+html, body.home {
     height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
     overflow: hidden;
     font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-    background: url("../img/bgpic.JPG") no-repeat center center fixed;
-     -webkit-background-size: cover;
+    background: url("../img/bgpic-min.JPG") no-repeat center center fixed;
+    -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
 
-img {
-    max-width: 100%;
+body.about {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+    display: block;
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+    background-color: #000000;
 }
 
 h1{
@@ -23,17 +30,12 @@ h1{
 
 #div1 {
     position: relative;
-    overflow: hidden;
     text-align: center;
-}
-
-#div1 header {
-    padding-top: 20%;
 }
 
 #div1 header h1 {
     margin: 0;
-    padding: 0;
+    padding-top: 20%;
     font-size: 2.5em;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -53,9 +55,52 @@ h1{
     color: #000000;
 }
 
+#div1 p.about {
+    position: relative;
+    font-size: 1.0em;
+    letter-spacing: 0.05em;
+    line-height: 2em;
+    margin: 0cm 6cm 0cm;
+    text-align: center;
+    text-transform: inherit;
+    color: #fff;
+}
+
+#cf {
+    position:relative;
+    text-align: center;
+    padding-bottom: 400px;
+    left: -220px;
+}
+
+#cf img {
+    position: absolute;
+    padding-top: 6%;
+    padding-left: 4cm;
+    float: right;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+
+#cf img.top:hover {
+    opacity:0;
+}
+
+#cf p {
+    position: absolute;
+    width: 4cm;
+    margin-left: 8cm;
+    padding-top: 3.7%;
+    text-align: center;
+    color: #fff;
+}
+
+
+
 
 /* Social icons */
-
 .social-icons .btn {
     margin-right: 15px;
 }
@@ -125,11 +170,6 @@ h1{
    Responsive Settings
    ========================================================================== */
 
-@media(max-width:992px) {
-    #page-profile .profile {
-        margin: 0 auto 20px auto;
-    }
-}
 @media (max-width: 479px) {
     #div1 header h1 {
         font-size: 2em;
