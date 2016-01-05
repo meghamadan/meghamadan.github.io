@@ -6,7 +6,11 @@ html, body.home {
     overflow: hidden;
     font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
     background: url("../img/bgpic-min.JPG") no-repeat center center fixed;
+<<<<<<< HEAD
     -webkit-background-size: cover;
+=======
+     -webkit-background-size: cover;
+>>>>>>> 15a9203ea7bba6c5ec638dd694c50c6dcd537d62
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
