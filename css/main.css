@@ -3,7 +3,7 @@ html, body.home {
     width: 100%;
     padding: 0;
     margin: 0;
-    overflow: hidden;
+    overflow: auto;
     font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
     background: url("../img/bgpic-min.JPG") no-repeat center center fixed;
 <<<<<<< HEAD
@@ -64,7 +64,7 @@ h1{
     font-size: 1.0em;
     letter-spacing: 0.05em;
     line-height: 2em;
-    margin: 0cm 6cm 0cm;
+    margin: 0cm 4cm 0cm;
     text-align: center;
     text-transform: inherit;
     color: #fff;
@@ -72,16 +72,14 @@ h1{
 
 #cf {
     position:relative;
-    text-align: center;
-    padding-bottom: 400px;
-    left: -220px;
+    padding-bottom: 450px;
+    left: -210px;
 }
 
 #cf img {
     position: absolute;
     padding-top: 6%;
-    padding-left: 4cm;
-    float: right;
+    padding-left: 6cm;
     -webkit-transition: opacity 1s ease-in-out;
     -moz-transition: opacity 1s ease-in-out;
     -o-transition: opacity 1s ease-in-out;
@@ -94,10 +92,10 @@ h1{
 
 #cf p {
     position: absolute;
-    width: 4cm;
+    width: 5cm;
     margin-left: 8cm;
     padding-top: 3.7%;
-    text-align: center;
+    text-align: justify;
     color: #fff;
 }
 
