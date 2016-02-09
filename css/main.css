@@ -32,6 +32,17 @@ h1{
     font-weight: 700;
 }
 
+p {
+    position: relative;
+    color: white;
+    padding-left: 25px;
+}
+a {
+    position: relative;
+    color: white;
+    padding-left: 25px;
+}
+
 #div1 {
     position: relative;
     text-align: center;
