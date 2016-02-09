@@ -44,26 +44,19 @@
    varying vec3  vPosition;
    void main() {
 
-      // GET THE X,Y LOCATION FROM vPosition, THEN COMPUTE z AS THOUGH ON A SPHERE.
-
       float x = vPosition.x;
       float y = vPosition.y;
-      float z = x*x + y*y;
 
-      // CREATE A NEW COORDINATE SYSTEM THAT ROTATES IN TIME ABOUT THE Y AXIS.
-      
-      float u = x * cos(uTime) - z * sin(uTime);
-      float v = y;
-      float w = x * sin(uTime) + z * cos(uTime);
+      float c = x * x * x + y* y * y;
 
-      // CREATE A COOL PROCEDURAL TEXTURE.
+      vec3 color = vec3( sin(uTime / c + 5. * uCursor.y), cos(c / vPosition.y - .1 + uCursor.y), tan(c / uTime + uCursor.x) );
 
-      float c = w * cos(5. * (u + .131313 * sin(30. * v)))
-                  * cos(5. * (v + .131313 * sin(40. * u)));
 
-      // PUT THE RESULT INTO THE SYSTEM VARIABLE gl_FragColor.
-
-      gl_FragColor = vec4(c, .5 + .5 * w, .5 + .5 * w, 2.);
+      vec3 color2 = vec3( c / uTime * uCursor.y, c / vPosition.y + uCursor.y, c / uTime + uCursor.x);
+     
+     
+      gl_FragColor = vec4(color, 7.0707);
+    
    }
 </script>
 
