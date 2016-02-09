@@ -49,7 +49,7 @@
 
       float c = x * x * x + y* y * y;
 
-      vec3 color = vec3( cos(uTime / c + 5. * uCursor.y), abs(c / vPosition.y - .1 + uCursor.y), sin(c / uTime + uCursor.x) );
+      vec3 color = vec3( sin(uTime / c + 5. * uCursor.y), abs(c / vPosition.y - .1 + uCursor.y), abs(c / uTime + uCursor.x) );
      
      
       gl_FragColor = vec4(color, 151.);
