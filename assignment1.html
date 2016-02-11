@@ -5,6 +5,7 @@
 
 <body bgcolor=black>
 <center>
+   <p style="color: white;"> A small graphic I created to get familiar with fragment shading and the use of WebGL. You can use your cursor to move the sphere and change its rotation.</p>
 <canvas id='canvas1' width='480' height='480'>
 </canvas>
 </center>
@@ -44,16 +45,24 @@
    varying vec3  vPosition;
    void main() {
 
-      float x = vPosition.x;
-      float y = vPosition.y;
 
-      float c = x * x * x + y* y * y;
+      vec3 color = vec3(.1, .2, .4); //make a sphere
 
-      vec3 color = vec3( sin(uTime / c + 5. * uCursor.y), abs(c / vPosition.y - .1 + uCursor.y), abs(c / uTime + uCursor.x) );
-     
-     
-      gl_FragColor = vec4(color, 151.);
-    
+      float x = vPosition.x + .5 * sin(uTime * 2.) * uCursor.x;
+      float y = vPosition.y + .5 * cos(uTime * 2.) * uCursor.y;
+      float z = vPosition.z;
+
+      float r = (x * x + y * y + z * z) / .5 ;
+      if (r < .2){
+         color = vec3(sin(5. * (x + .03 * sin(30. * y)))
+                  * sin(5. * (y + .03 * sin(40. * x))), .4 * z, .8 * z);
+      }
+
+          
+      vec3 background = vec3(.2 + vPosition.x * sin(uCursor.x), .2 + vPosition.y * sin(uCursor.y), .2 + vPosition.x * sin(uTime));
+      
+      gl_FragColor = vec4(color, 1.) + vec4(background, .8) + vec4(.1 * uCursor.x, .1 * uCursor.y, z + .5, 1.);
+
    }
 </script>
 
