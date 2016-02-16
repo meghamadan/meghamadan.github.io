@@ -66,7 +66,7 @@
       vec3 V, W;
 
       V = vec3(0., 0., 0.);
-      W = normalize(vec3(vPosition.x - uCursor.x + sin(uTime), vPosition.y - uCursor.y , -10.0));
+      W = normalize(vec3(vPosition.x - uCursor.x , vPosition.y - uCursor.y , -10.0));
       sphere = vec4(0, 0, -20.0, 1.);
 
       // YOU NEED TO SET x,y,z AND r FOR sphere.
