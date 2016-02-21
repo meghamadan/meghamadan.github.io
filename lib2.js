@@ -104,6 +104,8 @@ function gl_init(gl, vertexShader, fragmentShader) {
    gl.uNLights = gl.getUniformLocation(program, "uNLights");
    gl.uTest    = gl.getUniformLocation(program, "uTest"   );
    gl.uTime    = gl.getUniformLocation(program, "uTime"   );
+   gl.uSValues = gl.getUniformLocation(program, "uSValues");
+
 }
 
 // gl_update() is called once per animation frame.
@@ -126,6 +128,7 @@ function gl_update(gl) {
    gl.uniform1i (gl.uNLights, nLights);                               // Set number of lights uniform variable.
    gl.uniform1f (gl.uTest   , testValue);                             // Set a test uniform variable.
    gl.uniform1f (gl.uTime   , time);                                  // Set time uniform variable.
+   gl.uniform4fv(gl.uSValues, sValues);                       
 
    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);                          // Render the square.
    requestAnimFrame(function() { gl_update(gl); });                 // Start the next frame.
