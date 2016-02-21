@@ -1,9 +1,22 @@
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+
 <script src=lib2.js></script>
 
 <body bgcolor=black>
-<center>
-<td><canvas id='canvas1' width=400 height=400></canvas></td>
-</center>
+   <div id="div1">
+
+      <nav class = "cl-effect-21">
+         <a href="graphics.html" class="active"> Back to Graphics Projects</a>
+      </nav>
+
+      <br><br><br><br>
+      <center>
+         <p style="color: white;"> Work with raytracing using the Phond Reflection model.<br>Use cursor to interact!</p>
+
+         <td><canvas id='canvas1' width=400 height=400></canvas></td>
+
+      </center>
+   </div>
 </body>
 
 <script>
@@ -70,7 +83,7 @@
 
    // FOR EXTRA CREDIT: IMPLEMENT MULTIPLE SPHERES.
    //vec4 sphere;
-   vec4 spheres[3];
+   vec4 spheres[4];
 
    // ambient AND diffuse, BELOW, ARE SUFFICIENT TO CREATE ONLY DIFFUSE MATERIALS.
 
@@ -104,7 +117,7 @@
          if (i < uNLights){
             vec3 R = 2. * normal * dot(normal, uLDir[i]) - uLDir[i];
             float maximum = max(.0, dot(-W, R));
-            shade += lColor[i] * ((diffuse * max(.0, dot(normal, uLDir[i]))) + specular * pow(maximum, 2.));
+            shade += lColor[i] * ((diffuse * max(.0, dot(normal, uLDir[i]))) + specular * pow(maximum, 10.));
             //shade += lColor[i] * diffuse * max(0., dot(normal, uLDir[i]));
          }
 
@@ -122,6 +135,7 @@
       spheres[0] = vec4(.25, sin(uTime *.65), -3., .35);
       spheres[1] = vec4(uCursor.x, uCursor.y, -3., .25);
       spheres[2] = vec4(.0 , .5 * cos(uTime * 2.) , -2.8 + sin(uTime) , .15);
+      spheres[3] = vec4(-.3 * cos(uTime * 2.), .8 * sin(uTime), -2.8 + sin(uTime), .10);
 
 
       ambient = vec3(.1, .1, .1);
@@ -136,7 +150,7 @@
       
       float min = 10000.; // KEEP TRACK OF SMALLEST t
 
-      for(int i = 0; i < 3; i++){
+      for(int i = 0; i < 4; i++){
          float t = raySphere(V, W, spheres[i]);
 
          if(t < min){
