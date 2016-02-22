@@ -33,7 +33,6 @@ function start_gl(canvas_id, vertexShader, fragmentShader) {
    setTimeout(function() {
 
       // Make sure the browser supports WebGL.
-
       try {
          var canvas = document.getElementById(canvas_id);
          var gl = canvas.getContext("experimental-webgl");
@@ -105,6 +104,7 @@ function gl_init(gl, vertexShader, fragmentShader) {
    gl.uLColors = gl.getUniformLocation(program, "uLColors");
    gl.uTime    = gl.getUniformLocation(program, "uTime"   );
    gl.uSValues = gl.getUniformLocation(program, "uSValues");
+   gl.uSValues2= gl.getUniformLocation(program, "uSValues2");
    gl.uSpecVal = gl.getUniformLocation(program, "uSpecVal");
    gl.uPower   = gl.getUniformLocation(program, "uPower");
    gl.uAmbVal  = gl.getUniformLocation(program, "uAmbVal");
@@ -132,7 +132,8 @@ function gl_update(gl) {
    gl.uniform1i (gl.uNLights, nLights);                               // Set number of lights uniform variable.
    gl.uniform3fv(gl.uLColors, lColorValues);
    gl.uniform1f (gl.uTime   , time);                                  // Set time uniform variable.
-   gl.uniform4fv(gl.uSValues, sValues);                       
+   gl.uniform4fv(gl.uSValues, sValues);
+   gl.uniform4fv(gl.uSValues2, sValues2);                                           
    gl.uniform3fv(gl.uSpecVal, specValues);
    gl.uniform1f (gl.uPower  , power);
    gl.uniform3fv(gl.uAmbVal , ambientValues);  
