@@ -29,17 +29,11 @@
 
    // MAINTAIN AN ARRAY OF LIGHT DIRECTION VALUES.
    var lDirValues;
-
    var sValues;
-
    var specValues;
-
    var power;
-
    var lColorValues;
-
    var ambientValues;
-
    var diffuseValues;
 
    // UPDATE FUNCTION IS CALLED BY THE LIBRARY BEFORE RENDERING, ONCE PER ANIMATION FRAME.
@@ -72,7 +66,6 @@
       lColorValues.push(lColor1[0], lColor1[1], lColor1[2]);
       lColorValues.push(lColor2[0], lColor2[1], lColor2[2]);
 
-
       var a = Math.sin(time * 2.);
       var b = Math.cos(time * 2.);
       var c = Math.sin(time);
@@ -94,7 +87,7 @@
 
       ambientValues = [.01, .01, .01];
 
-      diffuseValues = [.01, .01, .01];
+      diffuseValues = [.01, .01, .01, .9, .9, .9];
    }
 
 </script>
@@ -118,7 +111,7 @@
 
    uniform vec3  uSpecVal;
    uniform vec3  uAmbVal;
-   uniform vec3  uDiffVal;
+   uniform vec3  uDiffVal[2];
    uniform float uPower;
 
    uniform float uTime;
@@ -153,9 +146,7 @@
             float maximum = max(.0, dot(-W, R));
             shade += uLColors[i] * ((uDiffVal * max(.0, dot(normal, uLDir[i]))) + uSpecVal * pow(maximum, uPower));
          }
-
       }
-
       return shade;
    }
 
@@ -167,13 +158,13 @@
 
       vec3 color = vec3(.05, .05, .05);         // BACKGROUND COLOR
       
-      float min = 10000.; // KEEP TRACK OF SMALLEST t
+      float min = 10000.;                      // KEEP TRACK OF SMALLEST t
 
       for(int i = 0; i < 4; i++){
          float t = raySphere(V, W, uSValues[i]);
          if(t < min){
             min = t;
-            color = shadeSphere(V + t * W, uSValues[i], W, uDiffVal, uSpecVal);
+            color = shadeSphere(V + t * W, uSValues[i], W, uDiffVal[i], uSpecVal);
          }
       }
 
