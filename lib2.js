@@ -102,9 +102,13 @@ function gl_init(gl, vertexShader, fragmentShader) {
    gl.uCursor  = gl.getUniformLocation(program, "uCursor" );
    gl.uLDir    = gl.getUniformLocation(program, "uLDir"   );
    gl.uNLights = gl.getUniformLocation(program, "uNLights");
-   gl.uTest    = gl.getUniformLocation(program, "uTest"   );
+   gl.uLColors = gl.getUniformLocation(program, "uLColors");
    gl.uTime    = gl.getUniformLocation(program, "uTime"   );
    gl.uSValues = gl.getUniformLocation(program, "uSValues");
+   gl.uSpecVal = gl.getUniformLocation(program, "uSpecVal");
+   gl.uPower   = gl.getUniformLocation(program, "uPower");
+   gl.uAmbVal  = gl.getUniformLocation(program, "uAmbVal");
+   gl.uDiffVal = gl.getUniformLocation(program, "uDiffVal");
 
 }
 
@@ -126,9 +130,14 @@ function gl_update(gl) {
    gl.uniform3f (gl.uCursor , gl.cursor.x, gl.cursor.y, gl.cursor.z); // Set cursor uniform variable.
    gl.uniform3fv(gl.uLDir   , lDirValues);                            // Set light directions uniform variable.
    gl.uniform1i (gl.uNLights, nLights);                               // Set number of lights uniform variable.
-   gl.uniform1f (gl.uTest   , testValue);                             // Set a test uniform variable.
+   gl.uniform3fv(gl.uLColors, lColorValues);
    gl.uniform1f (gl.uTime   , time);                                  // Set time uniform variable.
    gl.uniform4fv(gl.uSValues, sValues);                       
+   gl.uniform3fv(gl.uSpecVal, specValues);
+   gl.uniform1f (gl.uPower  , power);
+   gl.uniform3fv(gl.uAmbVal , ambientValues);  
+   gl.uniform3fv(gl.uDiffVal, diffuseValues);                       
+
 
    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);                          // Render the square.
    requestAnimFrame(function() { gl_update(gl); });                 // Start the next frame.

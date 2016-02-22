@@ -32,8 +32,15 @@
 
    var sValues;
 
-   // A TEST VARIABLE, JUST FOR PRACTICING DECLARING AND SETTING UNIFORM SHADER VARIABLES.
-   var testValue = 0;
+   var specValues;
+
+   var power;
+
+   var lColorValues;
+
+   var ambientValues;
+
+   var diffuseValues;
 
    // UPDATE FUNCTION IS CALLED BY THE LIBRARY BEFORE RENDERING, ONCE PER ANIMATION FRAME.
    var update = function() {
@@ -42,6 +49,7 @@
       var x = Math.sin(Math.PI * time );
       var y = Math.cos(.5 * time);
 
+      // Light direction variables
       var lDir0 = [x,x,1];
       var lDir1 = [-1,-1,-1];
       var lDir2 = [y, x, 5];
@@ -54,13 +62,24 @@
       lDirValues.push(lDir1[0], lDir1[1], lDir1[2]);
       lDirValues.push(lDir2[0], lDir2[1], lDir2[2]);
 
+      // Light color variables
+      var lColor0 = [.16, .82, .78];
+      var lColor1 = [.87, .1, .58];
+      var lColor2 = [.3, 1., .08];
+
+      lColorValues = [];
+      lColorValues.push(lColor0[0], lColor0[1], lColor0[2]);
+      lColorValues.push(lColor1[0], lColor1[1], lColor1[2]);
+      lColorValues.push(lColor2[0], lColor2[1], lColor2[2]);
+
+
       var a = Math.sin(time * 2.);
       var b = Math.cos(time * 2.);
       var c = Math.sin(time);
 
-      var sphere0 = [.25, a, -3., .35];
+      var sphere0 = [.25, a, -3. + c, .35];
       var sphere1 = [a, b, -2.8, .15];
-      var sphere2 = [.0 , .5 * b , -2.8 + c , .15];
+      var sphere2 = [.0 , .5 * b , -2.8 + c , .15 + -c/3];
       var sphere3 = [-.3 * b, .8 * c, -2.8 + c, .10];
 
       sValues = [];
@@ -69,9 +88,15 @@
       sValues.push(sphere2[0],sphere2[1],sphere2[2],sphere2[3]);
       sValues.push(sphere3[0],sphere3[1],sphere3[2],sphere3[3]);
 
-      // THIS IS JUST A TEST VALUE THAT WE CREATED FOR PRACTICE.
-      testValue = .5 + .5 * Math.sin(.1 * time);
+      specValues = [.4, .4, .4];
+
+      power = 3.;
+
+      ambientValues = [.01, .01, .01];
+
+      diffuseValues = [.01, .01, .01];
    }
+
 </script>
 
 <script id='my_vertex_shader' type='x-shader/x-vertex'> 
@@ -87,26 +112,24 @@
    precision mediump float;
    uniform vec3  uCursor;
    uniform vec3  uLDir[20];  // WE ADDED THIS UNIFORM
+   uniform vec3  uLColors[3];
+
    uniform vec4  uSValues[4];
-   uniform float uTest;      // WE ADDED THIS UNIFORM
+
+   uniform vec3  uSpecVal;
+   uniform vec3  uAmbVal;
+   uniform vec3  uDiffVal;
+   uniform float uPower;
+
    uniform float uTime;
    uniform int   uNLights;   // WE ADDED THIS UNIFORM
    varying vec3  vPosition;
-
-   // FOR EXTRA CREDIT: IMPLEMENT MULTIPLE SPHERES.
-   //vec4 spheres[4];
 
    // ambient AND diffuse, BELOW, ARE SUFFICIENT TO CREATE ONLY DIFFUSE MATERIALS.
 
    // YOU NEED TO ADD specular AND power TO IMPLEMENT THE PHONG SHADING ALGORITHM.
    // FOR EXTRA CREDIT, YOU CAN MAKE THESE ARRAYS TO IMPLEMENT MULTIPLE MATERIALS.
    
-   vec3 ambient;
-   vec3 diffuse;
-   vec3 specular;
-
-   vec3 lColor[3];
-
    // COMPUTE THE INTERSECTION OF A RAY WITH A SPHERE, IF ANY.
    float raySphere(vec3 V, vec3 W, vec4 sph) {
       vec3 D = V - sph.xyz;
@@ -118,18 +141,17 @@
 
    // YOU NEED TO CHANGE THIS TO USE THE PHONG SHADING ALGORITHM.
    //vec3 shadeSphere(vec3 point, vec4 sphere, vec3 W, vec3 diffuse, vec3 specular) {
-   vec3 shadeSphere(vec3 point, vec4 sphere, vec3 W, vec3 diffuse, vec3 specular) {
+   vec3 shadeSphere(vec3 point, vec4 sphere, vec3 W, vec3 uDiffVal, vec3 uSpecVal) {
 
       vec3 normal = (point - sphere.xyz) / sphere.w;
-      vec3 shade = ambient;
+      vec3 shade = uAmbVal;
 
       // LOOP THROUGH THE FIRST uNlights LIGHT SOURCES.
       for (int i = 0 ; i < 20 ; i++){
          if (i < uNLights){
             vec3 R = 2. * normal * dot(normal, uLDir[i]) - uLDir[i];
             float maximum = max(.0, dot(-W, R));
-            shade += lColor[i] * ((diffuse * max(.0, dot(normal, uLDir[i]))) + specular * pow(maximum, 10.));
-            //shade += lColor[i] * diffuse * max(0., dot(normal, uLDir[i]));
+            shade += uLColors[i] * ((uDiffVal * max(.0, dot(normal, uLDir[i]))) + uSpecVal * pow(maximum, uPower));
          }
 
       }
@@ -138,22 +160,6 @@
    }
 
    void main(void) {
-
-      lColor[0] = vec3(.16, .82, .78);
-      lColor[1] = vec3(.87, .1, .58);
-      lColor[2] = vec3(.3, 1., .08);
-
-      // spheres[0] = vec4(.25, sin(uTime *.65), -3., .35);
-      // spheres[1] = vec4(uCursor.x, uCursor.y, -3., .25);
-      // spheres[2] = vec4(.0 , .5 * cos(uTime * 2.) , -2.8 + sin(uTime) , .15);
-      // spheres[3] = vec4(-.3 * cos(uTime * 2.), .8 * sin(uTime), -2.8 + sin(uTime), .10);
-
-
-
-
-      ambient = vec3(.1, .1, .1);
-      diffuse = vec3(.9, .9, .9);
-      specular = vec3(.5,.5, .5);
 
       // COMPUTE V AND W TO CREATE THE RAY FOR THIS PIXEL, USING vPosition.x AND vPosition.y.
       vec3 V = vec3(0., 0., 0.);
@@ -165,16 +171,13 @@
 
       for(int i = 0; i < 4; i++){
          float t = raySphere(V, W, uSValues[i]);
-
          if(t < min){
             min = t;
-            color = shadeSphere(V + t * W, uSValues[i], W, diffuse, specular);
+            color = shadeSphere(V + t * W, uSValues[i], W, uDiffVal, uSpecVal);
          }
-
       }
 
-      color.r *= uTest; // SEE WHETHER TEST VALUE HAS BEEN PASSED CORRECTLY TO THE FRAGMENT SHADER.
-
+      color.r *= .5 + sin(2. * uTime);
       color = sqrt(color);                   // DO GAMMA CORRECTION.
 
       gl_FragColor = vec4(color, 1.);        // SET OPACITY TO 1.
