@@ -137,7 +137,7 @@
 
    // FRACTAL BUMP TEXTURE FOR EROSION
    float texture(vec3 p) {
-      float t = -.5 + turbulence(p + vec3(uTime * .1, 0., 0.));
+      float t = -.5 + turbulence(p + vec3(uTime * .3, 0., 0.));
       //float t = fractal(p);
       //return .1 * min(0., t + .1);
       return .03 * max(0., sin(10. * p.x + 10. * t));
@@ -148,6 +148,7 @@
       return .5 + .5 * sin(10. * p.x + 10. * fractal(p));
    }
 
+   // determine if it is in shadow
    bool inShadow(vec3 point, vec3 lightDir, int sNum) {
 
       for (int i = 0; i < 4; i++) {
@@ -171,13 +172,13 @@
       // COMPUTE GRADIENT OF "BUMPY" TEXTURE, THEN SUBTRACT THAT GRADIENT FROM NORMAL.
 
       float t0 = texture(p);
-      float tx = texture(p - vec3(.01, 0., 0.));
+      float tx = texture(p + vec3(.01, 0., 0.));
       float ty = texture(p + vec3(0., .01, 0.));
       float tz = texture(p + vec3(0., 0., .01));
 
       normal = normalize(normal - vec3(tx-t0, ty-t0, tz-t0) / .01);
 
-      float tt = 50. * t0;
+      float tt = 100. * t0;
 
       // MODULATE SPECULARITY BY EROSION TEXTURE.
 
@@ -213,11 +214,11 @@
       // wanted to move the sphere so I did not use uniform variables
       sphereValues[0] = vec4(uCursor.x, uCursor.y, -2.5, .15); 
       sphereValues[1] = vec4(0.1, 0., -3., .40); 
-      sphereValues[2] = vec4(sin(uTime), cos(uTime), -3. + sin(uTime), .25);
+      sphereValues[2] = vec4( sin(uTime), cos(uTime), -3. + sin(uTime), .25);
 
 
       ambient = vec3(.01, .01, .01);
-      diffuse = vec3(.1, .1, .1);
+      diffuse = vec3(.1, .2, .1);
       specular = vec3(.5, .5, .5);
       power = 20.;
 
@@ -232,7 +233,7 @@
       float t;
       float min = 10000.;                     // KEEP TRACK OF SMALLEST t
 
-      for(int i = 0; i < 2; i++){
+      for(int i = 0; i < 3; i++){
          t = raySphere(V, W, sphereValues[i]);
 
          if(t < min){
@@ -251,5 +252,3 @@
 start_gl('canvas1', document.getElementById('my_vertex_shader'  ).innerHTML,
                     document.getElementById('my_fragment_shader').innerHTML);
 </script>
-
-
