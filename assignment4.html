@@ -137,10 +137,10 @@
 
    // FRACTAL BUMP TEXTURE FOR EROSION
    float texture(vec3 p) {
-      //float t = -.5 + turbulence(p + vec3(uTime * .1, 0., 0.));
-      float t = fractal(p);
-      return .1 * min(0., t + .1);
-      //return .03 * max(0., sin(10. * p.x + 10. * t));
+      float t = -.5 + turbulence(p + vec3(uTime * .1, 0., 0.));
+      //float t = fractal(p);
+      //return .1 * min(0., t + .1);
+      return .03 * max(0., sin(10. * p.x + 10. * t));
    }
 
    // SOLID MARBLING TEXTURE FOR COLOR VARIATION
@@ -213,7 +213,7 @@
       // wanted to move the sphere so I did not use uniform variables
       sphereValues[0] = vec4(uCursor.x, uCursor.y, -2.5, .15); 
       sphereValues[1] = vec4(0.1, 0., -3., .40); 
-      sphereValues[2] = vec4(0.1, .9, -3., .40);
+      sphereValues[2] = vec4(sin(uTime), cos(uTime), -3. + sin(uTime), .25);
 
 
       ambient = vec3(.01, .01, .01);
