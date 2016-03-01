@@ -123,7 +123,7 @@
    vec3  diffuse;
    vec3  lColor[2];
    vec3  specular;
-   vec4 sphereValues[2];
+   vec4 sphereValues[3];
    float power;
 
    // COMPUTE THE INTERSECTION OF A RAY WITH A SPHERE, IF ANY.
@@ -213,6 +213,7 @@
       // wanted to move the sphere so I did not use uniform variables
       sphereValues[0] = vec4(uCursor.x, uCursor.y, -2.5, .15); 
       sphereValues[1] = vec4(0.1, 0., -3., .40); 
+      sphereValues[2] = vec4(0.1, .9, -3., .40);
 
 
       ambient = vec3(.01, .01, .01);
