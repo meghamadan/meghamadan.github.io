@@ -30,10 +30,10 @@
 
       // AT EACH ANIMATION FRAME, COMPUTE THE LIGHT DIRECTIONS.
 
-      var x = 1;//Math.sin(Math.PI * time);
+      var x = Math.sin(Math.PI * time);
 
       var lDir0 = [x,1,1];
-      var lDir1 = [-1,-1,-1];
+      var lDir1 = [-1,-1,3];
       normalize(lDir0);
       normalize(lDir1);
 
@@ -148,12 +148,11 @@
       return .5 + .5 * sin(10. * p.x + 10. * fractal(p));
    }
 
-   // determine if it is in shadow
+   //determine if it is in shadow
    bool inShadow(vec3 point, vec3 lightDir, int sNum) {
-
-      for (int i = 0; i < 4; i++) {
-         if (!(i == sNum)) {
-            float ray = raySphere(point, lightDir, sphereValues[i]);
+      for (int i = 0; i < 3; i++) {
+         if (i != sNum) {
+            float ray = raySphere(point+.01, lightDir, sphereValues[i]);
             if (ray < 10000. && ray > 0.)
                return true;  
          }
@@ -192,19 +191,26 @@
 
       // LOOP THROUGH THE FIRST uNlights LIGHT SOURCES.
 
-      for (int i = 0 ; i < 2 ; i++)
-         if (i < uNLights) {
-            if (inShadow(point + .01, uLDir[0], 1)) {
-               shade = ambient;
-            }
-            else{
-               vec3 R = 2. * dot(normal, uLDir[i]) * normal - uLDir[i];
-               shade += lColor[i] * (diffuse * max(0., dot(normal, uLDir[i])) +
+         for (int i = 0 ; i < 20; i++){
+
+            for(int j=0 ; j < 3; j++){
+
+               float ray = raySphere(point+.01 * uLDir[i], uLDir[i], sphereValues[j]);
+
+               if (i < uNLights) {
+                  if (ray < 10000. && ray > 0.) {
+                     shade = ambient;
+                  }
+                  else{
+                     vec3 R = 2. * dot(normal, uLDir[i]) * normal - uLDir[i];
+                     shade += lColor[i] * (diffuse * max(0., dot(normal, uLDir[i])) +
                                   shininess * pow(max(0., dot(-W, R)), power));
+                  }
+               }
             }
          }
-      return shade;
-   }
+         return shade;
+      }
 
    void main(void) {
 
@@ -234,6 +240,7 @@
       float min = 10000.;                     // KEEP TRACK OF SMALLEST t
 
       for(int i = 0; i < 3; i++){
+
          t = raySphere(V, W, sphereValues[i]);
 
          if(t < min){
@@ -252,3 +259,5 @@
 start_gl('canvas1', document.getElementById('my_vertex_shader'  ).innerHTML,
                     document.getElementById('my_fragment_shader').innerHTML);
 </script>
+
+
