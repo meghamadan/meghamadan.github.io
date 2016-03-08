@@ -1,0 +1,102 @@
+
+<b><a href=http://www.w3schools.com/tags/ref_canvas.asp target=1>
+<big>HTML5 Canvas Reference is here</big></a></b>
+
+<!! THIS IS AN EXAMPLE OF A HOMEWORK DOCUMENT THAT CONTAINS CANVAS BASED GRAPHICS.
+    YOU SHOULD PROBABLY CHANGE THE TEXT TO SOMETHING THAT DESCRIBES YOUR OWN WORK.>
+
+<p>
+Here is my cool homework, and this is my
+most eggcellent example:
+<p>
+<center>
+<table>
+<tr>
+<td>
+<center>
+<canvas id=canvas1 width=800 height=500></canvas>
+<p>This is an egg. Handle it with care.</p>
+</center>
+</td>
+
+<script src=drawlib1.js></script>
+
+<!-- BELOW IS THE CONTENT WE DEVELOPED IN TUESDAYS CLASS-->
+
+<script>
+   var canvas;
+
+   canvas = initCanvas('canvas1');
+   canvas.update = function(g) {
+      var x = this.cursor.x,
+          y = this.cursor.y;
+
+      g.strokeStyle = 'black';
+      g.strokeRect(1, 1, this.width-2, this.height-2);
+
+      g.fillStyle  = "#6e3212";
+      g.fillRect(200, 240, 20, 80);
+
+      g.fillStyle = "green";
+      g.fillRect(100, 300, 150, 395);
+
+      g.beginPath();
+      g.moveTo(100,300);
+      g.lineTo(250, 300);
+      g.lineTo(175,250);
+      g.fill();
+
+      g.fillStyle  = "#6e3212";
+      g.fillRect(150, 420, 50, 78);
+
+
+      g.strokeStyle = "yellow";
+      g.lineWidth =5;
+      g.beginPath();
+      g.arc(700,75,50,0,Math.PI*2,true);
+      g.moveTo(735,75);
+      g.arc(700,75,35,0,Math.PI,false);
+      g.moveTo(690,65);
+      g.arc(685,65,5,0,Math.PI*2,true);
+      g.moveTo(720,65);
+      g.arc(715,65,5,0,Math.PI*2,true);
+      g.stroke();
+
+
+      function drawEllipse(centerX, centerY, width, height) {
+   
+         g.beginPath();
+         
+         g.moveTo(centerX, centerY - height/2); // A1
+  
+         g.bezierCurveTo(
+            centerX + width/2, centerY - height/2, // C1
+            centerX + width/2, centerY + height/2, // C2
+            centerX, centerY + height/2); // A2
+
+         g.bezierCurveTo(
+            centerX - width/2, centerY + height/2, // C3
+            centerX - width/2, centerY - height/2, // C4
+            centerX, centerY - height/2); // A1
+ 
+         g.fillStyle = "#f1a364";
+         g.closePath();
+      }
+
+      drawEllipse(x, 447, 105, 100);
+
+      g.fill();
+
+   }
+
+
+
+
+
+
+   canvas = initCanvas('canvas2');
+   canvas.update = function(g) {
+
+   }
+</script>
+
