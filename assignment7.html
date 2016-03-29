@@ -13,7 +13,7 @@
 <canvas id="canvas1" width=400 height=400></canvas>
 <p>
 
-<i></i>
+<i> still working on adding the torso and head </i>
 
 </center>
 </td>
@@ -84,6 +84,9 @@ for (var side = -1 ; side <= 1 ; side += 2) {
       var angle0 = -.5 * Math.sin(rate * time);
       var angle1 =  .5 * Math.cos(rate * time);
       var angle2 = .7 * (-side + Math.sin(rate * time));
+
+
+      // figure out how to add torso and head...
 
       matrix.identity();
       matrix.rotateY(.1); // want to see the hips
