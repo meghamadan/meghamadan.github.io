@@ -26,3 +26,15 @@ Vector3.prototype = {
    }
 }
 
+function Square(x, y) {
+   this.x = 0;
+   this.y = 0;
+   this.set(x, y);
+}
+
+Square.prototype = {
+   set : function(x, y) {
+      if (x !== undefined) this.x = x;
+      if (y !== undefined) this.y = y;
+   }
+}

@@ -1,0 +1,168 @@
+
+<b><a href=http://www.w3schools.com/tags/ref_canvas.asp target=1>
+<big>HTML5 Canvas Reference is here</big></a></b>
+
+<p>
+<p>
+
+<center>
+<table>
+<tr>
+<td>
+<center>
+<canvas id='canvas1' width=400 height=400></canvas>
+<p>
+
+<i></i>
+
+</center>
+</td>
+</tr>
+</table>
+<p>
+</center>
+<p>
+
+<script src=utility.js></script>
+<script src=drawlib2.js></script>
+<script src=matrix.js></script>
+
+<script>
+
+
+   var canvas;
+
+   var matrix = new Matrix();
+
+   var pt0 = new Vector3(-1, 0, 0);
+   var pt1 = new Vector3( 1, 0, 0);
+   var tmp = new Vector3( 0, 0, 0);
+
+   var pix0 = new Vector3(0, 0, 0);
+   var pix1 = new Vector3(0, 0, 0);
+
+
+
+
+
+   var canvas;
+
+   var matrix = new Matrix();
+
+   var pt0 = new Vector3(-1, 0, 0);
+   var pt1 = new Vector3( 1, 0, 0);
+   var tmp = new Vector3( 0, 0, 0);
+
+   var pix0 = new Vector3(0, 0, 0);
+   var pix1 = new Vector3(0, 0, 0);
+
+   function moveTo(p) {
+      pt0.set(p[0], p[1], p[2]);
+      matrix.transform(pt0, tmp);
+      tmp.viewportTransform(width, height, pix0);
+      g.moveTo(pix0.x, pix0.y);
+   }
+
+   function lineTo(p) {
+      pt0.set(p[0], p[1], p[2]);
+      matrix.transform(pt0, tmp);
+      tmp.viewportTransform(width, height, pix0);
+      g.lineTo(pix0.x, pix0.y);
+   }
+
+
+   function drawUnitSquare() {
+      g.beginPath();
+      moveTo(-1,-1, 0);
+      lineTo( 1,-1, 0);
+      lineTo( 1, 1, 0);
+      lineTo(-1, 1, 0);
+      lineTo(-1,-1, 0);
+      g.strokeStyle = 'black';
+      g.lineWidth = 16;
+      g.stroke();
+   }
+
+   // function bezier(a, b, c, d) {
+   //    var a1 = -1 * a + 3 * b - 3 * c + d;
+   //    var b1 = 3 * a - 6 * b + 3 * c;
+   //    var c1 = -3 * a + 3 * b;
+   //    var d1 = a;
+   //    return [a1, b1, c1, d1];
+   // }
+
+   // function hermite(a, b, c, d) {
+   //    var a1 = 2 * a - 2 * b + c + d;
+   //    var b1 = -3 * a + 3 * b - 2 * c - d;
+   //    var c1 = c;
+   //    var d1 = a;
+   //    return [a1, b1, c1, d1];
+   // }
+
+   function hermite(A, B, C, D) {
+      var hermiteMatrix = new Matrix(); 
+      var M = [
+         [2, -2, 1, 1],
+         [-3, 3, -2, -1],
+         [0, 0, 1, 0],
+         [1, 0, 0, 0]
+      ];
+      var tvec = hermiteMatrix.multiplyMatrix(M, [[A], [B], [C], [D]]);
+      return [tvec[0][0], tvec[1][0], tvec[2][0], tvec[3][0]];
+   }
+
+   function bezier(A, B, C, D) {
+      var bezierMatrix = new Matrix();
+      var M = [
+         [-1, 3, -3, 1],
+         [3, -6, 3, 0],
+         [-3, 3, 0, 0],
+         [1, 0, 0, 0]
+      ];
+      var tvec = bezierMatrix.multiplyMatrix(M, [[A], [B], [C], [D]]);
+      return [tvec[0][0], tvec[1][0], tvec[2][0], tvec[3][0]];
+   }
+
+
+   var g;
+   var width;
+   var height;
+
+   canvas = initCanvas('canvas1');
+   canvas.update = function(_g) {
+      g = _g;
+      width = canvas.width;
+      height = canvas.height;
+
+      // OUTLINE AROUND CANVAS
+
+      g.lineWidth = 2;
+      g.strokeStyle = 'black';
+      g.beginPath();
+      g.moveTo(0, 0);
+      g.lineTo(width, 0);
+      g.lineTo(width, height);
+      g.lineTo(0, height);
+      g.lineTo(0, 0);
+      g.stroke();
+
+      matrix.identity();
+      matrix.scale(.6);
+      matrix.perspective(0, 0, -.1);
+
+      g.lineJoin = 'round';
+      g.lineCap = 'round';
+
+      
+
+      g.beginPath();
+      g.lineWidth = 3;
+      g.moveTo(50, 100)
+      g.lineTo(100, 250);
+      g.lineTo(300, 40);
+      g.stroke();
+   }
+
+
+</script>
+
