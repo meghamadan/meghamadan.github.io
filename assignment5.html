@@ -14,8 +14,8 @@ most eggcellent example:
 <tr>
 <td>
 <center>
-<canvas id=canvas1 width=800 height=500></canvas>
-<p>This is an egg. Handle it with care.</p>
+<canvas id='canvas1' width=800 height=500></canvas>
+<p>This is a boiling egg. Handle it with care (Don't click it!).</p>
 </center>
 </td>
 
@@ -23,31 +23,49 @@ most eggcellent example:
 
 <!-- BELOW IS THE CONTENT WE DEVELOPED IN TUESDAYS CLASS-->
 
+
+
 <script>
    var canvas;
 
+   var crack = new Audio("eggcrack.mp3");
+
+   crack.play();
+
+
    canvas = initCanvas('canvas1');
+   canvas.style.background = '#66ccff';
    canvas.update = function(g) {
+
       var x = this.cursor.x,
           y = this.cursor.y;
 
-      g.strokeStyle = 'black';
-      g.strokeRect(1, 1, this.width-2, this.height-2);
 
       g.fillStyle  = "#6e3212";
-      g.fillRect(200, 240, 20, 80);
+      g.beginPath();
+      g.rect(200, 240, 20, 80);
+      g.closePath();
+      g.fill();
 
       g.fillStyle = "green";
-      g.fillRect(100, 300, 150, 395);
+      g.beginPath();
+      g.rect(100, 300, 150, 395);
+      g.closePath();
+      g.fill();
 
+      g.fillStyle = "#bf00ff";
       g.beginPath();
       g.moveTo(100,300);
       g.lineTo(250, 300);
       g.lineTo(175,250);
+      g.closePath();
       g.fill();
 
-      g.fillStyle  = "#6e3212";
-      g.fillRect(150, 420, 50, 78);
+      g.fillStyle  = "yellow";
+      g.beginPath();
+      g.rect(150, 420, 50, 78);
+      g.closePath();
+      g.fill();
 
 
       g.strokeStyle = "yellow";
@@ -60,11 +78,14 @@ most eggcellent example:
       g.arc(685,65,5,0,Math.PI*2,true);
       g.moveTo(720,65);
       g.arc(715,65,5,0,Math.PI*2,true);
+      g.closePath();
       g.stroke();
 
 
-      function drawEllipse(centerX, centerY, width, height) {
+
+      function drawEgg(centerX, centerY, width, height) {
    
+         g.fillStyle = "#f1a364";
          g.beginPath();
          
          g.moveTo(centerX, centerY - height/2); // A1
@@ -79,13 +100,31 @@ most eggcellent example:
             centerX - width/2, centerY - height/2, // C4
             centerX, centerY - height/2); // A1
  
-         g.fillStyle = "#f1a364";
          g.closePath();
+         g.fill();
       }
 
-      drawEllipse(x, 447, 105, 100);
+      var img = new Image("babychick.jpg");
 
-      g.fill();
+      img.src = "babychick.jpg";
+
+
+      if(this.cursor.z == 1){
+
+         crack.play();
+         
+         g.drawImage(img, x-50, y-70, 150,180);
+
+      }
+      else{
+         drawEgg(x - 40, y - 40, 130 + 10*Math.sin(time*7), 125 + 10*Math.cos(time*7));
+         crack.pause();
+
+      }
+
+
+      g.strokeStyle = 'black';
+      g.strokeRect(1, 1, this.width-2, this.height-2);
 
    }
 
