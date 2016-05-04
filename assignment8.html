@@ -1,27 +1,21 @@
 
-<b><a href=http://www.w3schools.com/tags/ref_canvas.asp target=1>
-<big>HTML5 Canvas Reference is here</big></a></b>
+<link rel="stylesheet" type="text/css" href="css/component.css" />
 
-<p>
-<p>
+<!-- <b><a href=http://www.w3schools.com/tags/ref_canvas.asp target=1>
+<big>HTML5 Canvas Reference is here</big></a></b> -->
 
-<center>
-<table>
-<tr>
-<td>
-<center>
-<canvas id='canvas1' width=400 height=400></canvas>
-<p>
-
-<i></i>
-
-</center>
-</td>
-</tr>
-</table>
-<p>
-</center>
-<p>
+<body bgcolor=black>
+   <div id="div1">
+      <nav class = "cl-effect-21">
+         <a href="graphics.html" class="active"> Back to Graphics Projects</a>
+      </nav>
+      <br><br><br><br>
+      <center>
+         <p style="color: white;"> The purple fan. Working with parametric surfaces. Click to add ripples!</p>
+         <td><canvas id='canvas1' width=500 height=500></canvas></td>
+      </center>
+   </div>
+</body>
 
 <script src=utility.js></script>
 <script src=drawlib2.js></script>
@@ -30,7 +24,10 @@
 <script>
    var canvas;
 
-   var matrix = new Matrix();
+   var matrix;
+   var fanMatrix = new Matrix();
+   var torusMatrix = new Matrix();
+   var spiralMatrix = new Matrix();
 
    var pt0 = new Vector3(-1, 0, 0);
    var pt1 = new Vector3( 1, 0, 0);
@@ -58,7 +55,7 @@
       moveTo(x, y, z);
       lineTo(x, y, z + .001);
       g.stroke();
-   }
+   }    
 
    function drawUnitSquare() {
       g.beginPath();
@@ -85,21 +82,31 @@
       // OUTLINE AROUND CANVAS
 
       g.lineWidth = 2;
-      g.strokeStyle = 'black';
+      g.strokeStyle = 'white';
       g.beginPath();
       g.moveTo(0, 0);
       g.lineTo(width, 0);
       g.lineTo(width, height);
       g.lineTo(0, height);
       g.lineTo(0, 0);
-      g.fillStyle = "black";
-      g.fill();
       g.stroke();
 
-      matrix.identity();
-      matrix.scale(.6);
-      matrix.perspective(0, 0, -.1);
-      matrix.rotateY(time);
+      fanMatrix.identity();
+      fanMatrix.scale(.4);
+      fanMatrix.perspective(0, 0, .15);
+      fanMatrix.translate(.1,1.4,0);
+      fanMatrix.rotateY(time);
+
+      torusMatrix.identity();
+      torusMatrix.scale(.4);
+      torusMatrix.translate(-.9, -1.2 + Math.sin(time), 0);
+      torusMatrix.rotateX(1.3);
+
+      spiralMatrix.identity();
+      spiralMatrix.scale(.2);
+      spiralMatrix.translate(.5,0,0);
+      spiralMatrix.rotateX(1.5);
+
 
       g.lineJoin = 'round';
       g.lineCap = 'round';
@@ -130,13 +137,17 @@
          var r = 0.2;
 
          //r *= 1 + .1 * Math.sin(2 * Math.PI *  7 * (v + .3 * time));
-         //r *= 1 + .1 * Math.sin(2 * Math.PI * 10 * (u + .2 * time));
+
+         if(object.cursor.z == 1){
+            r *= 1 + .1 * Math.sin(2 * Math.PI * 10 * (u + .2 * time));
+         }
 
          var theta = 2 * Math.PI * u;
          var phi   = 2 * Math.PI * v;
          return [ Math.cos(theta) * (1 + r * Math.cos(phi)),
 	               Math.sin(theta) * (1 + r * Math.cos(phi)),
-	               r * Math.sin(phi) + Math.sin(object.cursor.x)
+	               r * Math.sin(phi) 
+                  //+ Math.sin(object.cursor.x)
 	              ];
       }
 
@@ -154,11 +165,13 @@
       }
 
 
-      function fan(u, v) {
+      function fan(u, v, object) {
          var theta = 2 * Math.PI * u;
          var phi   = Math.PI * (v - .5);
          var radius = Math.cos(theta) * Math.sin(phi);
-        //radius *= 1 + .1 * Math.sin(30 * (v + .3 * time));
+         if(object.cursor.z == 1){
+            radius *= 1 + .1 * Math.sin(30 * (v + .3 * time));
+         }
         //radius *= 1 + .1 * Math.sin(40 * (u + .2 * time));
          return [ radius * Math.cos(theta),
                   radius * Math.sin(theta) ,
@@ -170,7 +183,10 @@
          var theta = 2 * Math.PI * u;
          var phi   = Math.PI * (v - .5);
          var radius = phi * theta / 10;
-        //radius *= 1 + .1 * Math.sin(30 * (v + .3 * time));
+
+         if(object.cursor.z == 1){
+            radius *= 1 + .1 * Math.sin(30 * (v + .3 * time));
+         }
         //radius *= 1 + .1 * Math.sin(40 * (u + .2 * time));
          return [ radius * Math.cos(theta) + Math.sin(time),
                   radius * Math.sin(theta)  + Math.cos(time),
@@ -187,25 +203,26 @@
       for (var u = 0 ; u < 1 ; u += 1 / nu)
       for (var v = 0 ; v < 1 ; v += 1 / nv) {
 
-      g.beginPath();
-      g.strokeStyle = "#4d0066";
-      moveTo(fan(u, v));
-      lineTo(fan(u + 1 / nu, v));
+         g.strokeStyle = "#4d0066";
+         matrix = fanMatrix;
+         g.beginPath();
+         moveTo(fan(u, v, this));
+         lineTo(fan(u + 1 / nu, v, this));
+         g.stroke();
 
-      //g.rotate(Math.PI/90); // some crazy stuff happens when rotating the drawing
-      g.stroke();
+         g.strokeStyle = "#66ff33";
+         matrix = torusMatrix;
+         g.beginPath();
+   	   moveTo(torus(u, v, this));
+         lineTo(torus(u+1 / nu, v, this));
+         g.stroke();
 
-      g.beginPath();
-      g.strokeStyle = "#66ff33";
-	   moveTo(torus(u, v, this));
-      lineTo(torus(u+1 / nu, v, this));
-      g.stroke();
-
-      g.beginPath();
-      g.strokeStyle = "#00ffff";
-      moveTo(spiral(u, v, this));
-      lineTo(spiral(u+1 / nu, v, this));
-      g.stroke();
+         g.strokeStyle = "#00ffff";
+         matrix = spiralMatrix;
+         g.beginPath();
+         moveTo(spiral(u, v, this));
+         lineTo(spiral(u+1 / nu, v, this));
+         g.stroke();
 
       }
    }
