@@ -253,7 +253,7 @@ CT.Shape.prototype = {
 
    surfaceExtruded : function(nu, nv, fu, fv) {
       this.surfaceParametric(nu, nv, function(u, v) {
-         var xy = fv(u, v), x = xy[0], y = xy[1], p = fv(v), p1 = fv(v+.001);
+         var xy = fu(u, v), x = xy[0], y = xy[1], p = fv(v), p1 = fv(v+.001);
 	 var dz = CT.vectorNormalize([ p1[0]-p[0], p1[1]-p[1], p1[2]-p[2] ]);
 	 var dx = [1, 0, 0];
 	 var dy = CT.vectorNormalize(CT.vectorCross(dz, dx));
