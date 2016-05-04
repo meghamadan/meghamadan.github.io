@@ -13,7 +13,7 @@
 <canvas id='canvas1' width=500 height=500></canvas>
 <p>
 
-<i> This is my work with hermite and bezier curves.</i>
+<i> This is my work with bezier curves. More to be added soon.</i>
 
 </center>
 </td>
@@ -47,6 +47,10 @@
       var d = A;
 
       return [a,b,c,d];
+   }
+
+   function cubic(t, t_vec) {
+      return (t_vec[0] * t * t * t) + (t_vec[1] * t * t) + (t_vec[2] * t) + t_vec[3];   
    }
 
 
@@ -96,11 +100,25 @@
       g.lineJoin = 'round';
       g.lineCap = 'round';
 
+
+
       // OUTLINE AROUND CANVAS   
       g.strokeStyle = 'black';
       g.lineWidth = 1;
       g.strokeRect(0,0,width,height);
 
+
+      var cx = bezier(100, 200, 100, 300);
+      var cy = bezier(100, 100, 200 + 50*Math.sin(time), 300);
+
+      g.beginPath();
+      g.lineWidth = 3;
+      g.moveTo(100, 100)
+      var step = 0.001;
+      for (var i = 0; i <= 1; i += step) {
+         g.lineTo(cubic(i, cx), cubic(i, cy));
+      }
+      g.stroke();
 
 
    }  

@@ -54,7 +54,7 @@ CT.matrixTranspose = function(m) { return [m[0],m[4],m[ 8],m[12],m[1],m[5],m[ 9]
                                            m[2],m[6],m[10],m[14],m[3],m[7],m[11],m[15]]; }
 
 CT.Scene = function(canvas) {
-   this._fov = 0.5;
+   this._fov = 0.3;
    this._gl = canvas.getContext('experimental-webgl');
    this._lColor = [0,0,0, 0,0,0, 0,0,0];
    this._lDirInfo = [0,0,0, 0,0,0, 0,0,0];
@@ -239,7 +239,8 @@ CT._vertexShaderPerspective =
    ['   pos.y *= uAspect;'
    ,'   pos = mix(pos, vec4(.5 * pos.xyz / pos.w, 1.), uEye * uEye);'
    ,'   pos.x += .5 * uEye;'
-   ,'   vClipX = -pos.x * uEye;'
+   ,'   pos = vec4(pos.xy * mix(1., uAspect, uEye * uEye), pos.zw);'
+   ,'   vClipX = pos.x * uEye;'
    ,'   pos.z = pos.z * .1;'
    ,'   gl_Position = pos;'
    ].join('\n');
@@ -252,7 +253,7 @@ CT.Shape.prototype = {
 
    surfaceExtruded : function(nu, nv, fu, fv) {
       this.surfaceParametric(nu, nv, function(u, v) {
-         var xy = fu(u, v), x = xy[0], y = xy[1], p = fv(v), p1 = fv(v+.001);
+         var xy = fv(u, v), x = xy[0], y = xy[1], p = fv(v), p1 = fv(v+.001);
 	 var dz = CT.vectorNormalize([ p1[0]-p[0], p1[1]-p[1], p1[2]-p[2] ]);
 	 var dx = [1, 0, 0];
 	 var dy = CT.vectorNormalize(CT.vectorCross(dz, dx));
@@ -478,7 +479,9 @@ CT.Shape.prototype = {
       ,'   }'
       ,'   vec4 texture = texture2D(uSampler[0], vUV);'
       ,'   rgb = mix(rgb, rgb * texture.rgb, texture.a * uTexture[0]);'
-      ,'   gl_FragColor = vec4(pow(rgb, vec3(.45,.45,.45)), 1.) * step(vClipX, 0.);'
+      ,'   if (vClipX < 0.)'
+      ,'      discard;'
+      ,'   gl_FragColor = vec4(pow(rgb, vec3(.45,.45,.45)), 1.);'
       ,'}'
       ].join('\n'),
 }
