@@ -1,0 +1,61 @@
+<script src=CT_Modeler.js></script>
+
+<body background = "stars.jpg">
+<table width=100% cellpadding=0 cellspacing=0>
+<tr>
+<td><canvas id='canvas1' width=1480 height=1500></canvas>
+</tr>
+</table>
+</body>
+
+<script>
+   var imu = { direction:0, tiltFB:0, tiltLR:0 }; // IF BROWSER SUPPORTS PHONE
+   if (window.DeviceOrientationEvent) {           // ORIENTATION, ADD LISTENER.
+     window.addEventListener( 'deviceorientation', function(event) {
+        imu.direction = event.alpha;              // PHONE DIRECTION IN DEGREES
+        imu.tiltFB    = event.beta;               // TILT FRONT-BACK IN DEGREES
+        imu.tiltLR    = event.gamma;              // TILT LEFT-RIGHT IN DEGREES
+     });
+   }
+
+   function getTime() { return (new Date()).getTime() / 1000; }
+
+   var scene = new CT.Scene(canvas1);
+   scene.setLight(0, [ 1, 1, 1]);
+   scene.setLight(1, [-1,-1,-1], [.1, .05, 0]);
+   scene.setStereo(true);
+
+   var root = new CT.Node();
+   root.scale(.2);
+
+   scene.add(root);
+
+   var obj = root.addChild(new CT.Node());
+
+   //obj.addChild(new CT.Cube()       ).setColor(0,1,1).scale(.1,1,.1);
+   //obj.addChild(new CT.Cube(32,16)).setColor(1,0,0).translate(0,1,0).scale(.3);
+
+   var planet = root.addChild(new CT.Node());
+   planet.addChild(new CT.Sphere(20,10).translate(3,1,0).setTexture("mars.jpeg"));
+
+   var planetRing = root.addChild(new CT.Node());
+   planetRing.addChild(new CT.Torus(25,15,.05).rotateX(.9).translate(3,1,-.6).scale(1.4).setTexture("ring.jpg"));
+
+   var startTime = getTime();
+   (function update() {
+
+      CT.time = getTime() - startTime;
+
+      //obj.identity().rotateZ(imu.direction * .09);
+      planet.identity().rotateY(imu.direction * .09);
+      planetRing.identity().rotateY(imu.direction * .09);
+
+      for(var i=0; i < 10; i++){
+        
+      }
+
+      root.draw();
+      setTimeout(update, 0);
+   })();
+</script>
+
