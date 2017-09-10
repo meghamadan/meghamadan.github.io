@@ -41,19 +41,7 @@ audio:not([controls]) {
 template {
   display: none;
 }
-a {
-  background-color: transparent;
-}
-a:active,
-a:hover {
-  outline: 0;
-}
-.meghasocialicon {
-  font-size: 24px;
-∫ƒ}
-.meghasocialicon:hover {
-  text-decoration: none !important;
-}
+
 $yellow: #e8c63d;
 
 p{

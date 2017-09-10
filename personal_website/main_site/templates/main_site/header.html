@@ -1,87 +1,206 @@
-<!doctype html>
-<html class="no-js" lang="en">
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Megha Madan">
+		<meta name="description" content="Megha Madan is a full-stack software developer. This is her personal website.">
+		<meta name="keywords" content="megha, madan, software, developer, engineer, programmer">
+		<title>Megha Madan</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Megha Madan">
-    <meta name="description" content="Megha Madan is a full-stack software developer. This is her personal website.">
-    <meta name="keywords" content="megha, madan, software, developer, engineer, programmer">
-	<title>Megha Madan</title>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+		<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+		<link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
 
-	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
-	<link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet">
+		{% load staticfiles %}
+		<link rel='stylesheet prefetch' href='/static/css/pzgwyp.css'>
+		<link rel="stylesheet" href="/static/css/style.css">
+		<link rel="stylesheet" href="/static/css/font-awesome.css">
+	</head>
 
-	{% load staticfiles %}
-	<link rel='stylesheet' href="{% static 'css/bootstrap.min.css' %}" type='text/css'/>
-	<link rel='stylesheet' href="{% static 'css/custom.css' %}" type='text/css'/>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<style type="text/css">
-		html,
-		body {
-		  height: 100%;
-		  font-family: 'Lato', sans-serif;
-		}
-	</style>
-</head>
+	<body>
+	  	<body data-spy="scroll" data-target="#scroll-spy" style="padding-bottom: 0px;">
+			<nav class="navbar navbar-fixed-top">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-home" href="#home" role="button">
+							<svg class="lnr lnr-home"><use xlink:href="#lnr-home"></use></svg>
+						</a>	
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#scroll-spy" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<i class="material-icons">&#xE5D2;</i>
+						</button>
+					</div>
 
+					<div class="collapse navbar-collapse" id="scroll-spy">
 
-<body class="body" style="background-color: white">
-	<div class="container-fluid" style="min-height:95%; ">
+						<ul class="nav navbar-nav ">
+							<li><a href="#about">About</a></li>
+							<li><a href="#projects">Projects</a></li>
+							<li><a href="#skills">Skills</a></li>
+							<li><a href="#contact">Contact</a></li>					
+						</ul>
+					</div>	
+				</div>
+			</nav>
+			
+			<section id="home">
+				<div class="box">
+					<div class="bubble-aprox"></div>
+					<div class="bubble">
+						<span class="bubble__icon"><i class="material-icons">photo_camera</i></span>
+						<div class="bubble__content">
+							I took this photo during my flight from Helsinki to Ivalo, Finland. The pilot informed everyone the Northern Lights 
+							were visible, and I was able to keep my hand steady enough to get a semi-clear picture. 
+							<a href="">Here</a> are some more of my photos.
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<h1 class="display-4 nofill"><strong>Megha Madan</strong></h1>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<section id="about">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="section-header">
+								About
+							</div>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2" >
+							<p class="spaced">Welcome to my site! I'm a full-stack software <kbd id="dev">developer</kbd>. I've been working in my hometown <kbd id="atl">Atlanta, GA</kbd> at eVestment for the past year. I attended <kbd id="nyu">New York University</kbd> where I studied computer science and politics. Growing up traveling the world taught me how to think. I'm a fan of the <kbd id="us">U.S. Soccer</kbd> and <kbd id="india">Indian Cricket</kbd> Teams. I am also in awe of the <kbd id="cosmos">cosmos</kbd> and want to learn as much as I can about our place in the universe.</p>
+						</div>
+					</div>
+				</div>
+				<div class="hovergif">
+					<img id="hovergif" src="/static/img/profile.png" class="img-responsive img-thumbnail center-block" style="width: 50%">
+				</div>
+			</section> 
+			
+			<section id="projects">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="section-header">
+								Projects
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2" style="text-align: center; padding-bottom: 20px;">
+							<p class="spaced">I keep this website updated with my latest and greatest. Check back soon!</p>
+						</div>
+					</div>
+					<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2" id="ev" style="text-align: left; padding-bottom: 10px">
+						<img src="/static/img/evicon.jpg" id="evimg" class="grayimg img-responsive img-thumbnail center-block" style="width: 20%;">
+						<div id="evinfo" class="hiddendiv"><p class="spaced">Company hackathon projects using C#, Javascript and SQL.</p></div>
+					</div>
+					<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2" id="informed" style="text-align: left; padding-bottom: 10px">
+						<img src="/static/img/informed.png" id="informedimg" class="grayimg img-responsive img-thumbnail center-block" style="width: 20%;">
+						<div id="informedinfo" class="hiddendiv"><p class="spaced">Competitive news reading iOS app built with 
+																			Swift, Obejctive-C and the Facebook API.</p></div>
+					</div>
+					<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2" id="graphics" style="text-align: left; padding-bottom: 10px">
+						<img src="/static/img/graphics.png" id="graphicsimg" class="grayimg img-responsive img-thumbnail center-block" style="width: 20%;">
+						<div id="graphicsinfo" class="hiddendiv"><p class="spaced">Computer Graphics projects using HTML5, WebGL and Javascript.</p></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2" style="text-align: center; padding-top: 50px;">
+							<p class="spaced">More examples can be found on my <a href="http://github.com/meghamadan" target="_blank">github</a>.</p>
+						</div>
+					</div>
+				</div>
+			</section>
 
-		<!-- <div class="row">
-			  <div class="col-sm-6">
-				  <br>
-				  <center>
-					<img src="{% static 'img/profile.jpg' %}" class="responsive-img" style='max-height:100px;' alt="face">
-				  </center>
-			  </div>
-			  <div class="col-sm-6">
-				  <br>
-				  <center>
-				  	 <h3>Welcome to my site!</h3>
-				  </center>
-			  </div>
-		</div>
+			<section id="skills">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="section-header">
+								Skills
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="skill-container col-xs-12">
+							<div class="row">
+								<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2" style="text-align: center;">
+									<p class="spaced"> I use my side projects to try new technologies, including this website, 
+										which was built with Django and Bootstrap. Below are some of the programming laguages and 
+										development tools I have worked with.</p>
+									</div>
+									<div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4" style="text-align: center;">
+										<i class="mydevicon devicon-bootstrap-plain colored"></i>
+										<i class="mydevicon devicon-bitbucket-plain colored" ></i>
+										<i class="mydevicon devicon-c-plain colored" ></i>
+										<i class="mydevicon devicon-cplusplus-plain colored"></i>
+										<i class="mydevicon devicon-csharp-plain colored"></i>
+										<i class="mydevicon devicon-css3-plain colored"></i>
+										<i class="mydevicon devicon-django-plain colored"></i>
+										<i class="mydevicon devicon-dot-net-plain colored"></i>
+										<i class="mydevicon devicon-git-plain colored"></i>
+										<i class="mydevicon devicon-html5-plain colored"></i>
+										<i class="mydevicon devicon-java-plain colored"></i>
+										<i class="mydevicon devicon-javascript-plain colored"></i>
+										<i class="mydevicon devicon-jquery-plain colored"></i>
+										<i class="mydevicon devicon-postgresql-plain colored"></i>
+										<i class="mydevicon devicon-redis-plain colored"></i>
+										<i class="mydevicon devicon-swift-plain colored"></i>
+										<i class="mydevicon devicon-visualstudio-plain colored"></i>
+									</div>
+								</div>
+							</div>
+						</div>
 
-		<hr> -->
-
-		<div class="row">
-			<div class="col-sm-4">
-		  
-			<div class='container-fluid'>
-			   {% block content %}
-			   {% endblock %}	
-			</div>
-		  </div>
-			  <div class="col-sm-8">
-			  	
-			  </div> 
-		</div> 
-
-	</div>
-
-
-<!-- 	<footer>
-		<div class="container-fluid" style='margin-left:15px'>
-			<a class="meghasocialicon" href="http://linkedin.com/in/meghamadan" target="_blank">
-				<i class="fa fa-linkedin"> </i>
+					</div>
+				</div>
+			</section>
+			<section id="contact" class="footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="section-header" style="color: white">
+								Contact
+							</div>
+								<div class="col-xs-6 col-xs-offset-3 col-sm-4 col-sm-offset-4" style="text-align: center;">
+									<p class="spaced">I would love to connect in the real world. Shoot me an e-mail at megha [dot] madan [at] nyu [dot] edu.</p>
+									<a class="mysocialicon" href="http://linkedin.com/in/meghamadan" target="_blank">
+										<i class="grayicon fa fa-linkedin"> </i>
+									</a>
+									<a class="mysocialicon" href="http://github.com/meghamadan" target="_blank">
+										<i class="grayicon fa fa-github"> </i>
+									</a>
+									<a class="mysocialicon" href="https://open.spotify.com/user/1254501567" target="_blank">
+										<i class="grayicon fa fa-spotify"> </i>
+									</a>
+									<a class="mysocialicon" href="http://instagram.com/ameghabyte" target="_blank">
+										<i class="grayicon fa fa-instagram"> </i>
+									</a>
+								</div>
+						</div>
+					</div>
+				</div>	
+			</section> 
+			<a href="#home" role="button" class="scrollTop">
+				<svg class="lnr lnr-chevron-up"><use xlink:href="#lnr-chevron-up"></use></svg>
 			</a>
-			<a class="meghasocialicon" href="http://github.com/meghamadan" target="_blank">
-				<i class="fa fa-github"> </i>
-			</a>
-			<a class="meghasocialicon" href="http://soundcloud.com/meghabyte" target="_blank">
-				<i class="fa fa-spotify"> </i>
-			</a>
-			<a class="meghasocialicon" href="http://instagram.com/ameghabyte" target="_blank">
-				<i class="fa fa-instagram"> </i>
-			</a>
-		</div>
-	</footer>	 -->
-	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</body>
+		</body>
 
+		<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+		<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+		<script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+		<script src="/static/js/index.js"></script>
+		<script src="/static/js/hover.js"></script>
+	</body>
 </html>
