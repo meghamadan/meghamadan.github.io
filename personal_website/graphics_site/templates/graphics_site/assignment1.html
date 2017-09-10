@@ -1,0 +1,64 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="/static/css/component.css" />
+<script src="/static/js/lib1.js"></script>
+
+<body bgcolor=black>
+   <div id="div1">
+
+      <nav class = "cl-effect-21">
+         <a href="/graphics" class="active"> Back to Graphics Projects</a>
+      </nav>
+
+      <br><br><br><br>
+      <center>
+         <p style="color: white;"> Getting famailiar with fragment shading and the use of WebGL.<br>You can use your cursor to move the sphere and change its rotation!</p>
+
+         <canvas id='canvas1' width='480' height='480'>
+         </canvas>
+      </center>
+
+   </div>
+</body>
+
+<script id='vs' type='other'>
+   attribute vec3 aPosition;
+   varying   vec3 vPosition;
+   void main() {
+      gl_Position = vec4(aPosition, 1.0);
+      vPosition = aPosition;
+   }
+</script>
+
+<script id='fs' type='other'>
+   precision mediump float;
+   uniform float uTime;
+   uniform vec3  uCursor;
+   varying vec3  vPosition;
+   void main() {
+
+
+      vec3 color = vec3(.1, .2, .4); //make a sphere
+
+      float x = vPosition.x + .5 * sin(uTime * 2.) * uCursor.x;
+      float y = vPosition.y + .5 * cos(uTime * 2.) * uCursor.y;
+      float z = vPosition.z;
+
+      float r = (x * x + y * y + z * z) / .5 ;
+      if (r < .2){
+         color = vec3(sin(5. * (x + .03 * sin(30. * y)))
+                  * sin(5. * (y + .03 * sin(40. * x))), .4 * z, .8 * z);
+      }
+
+          
+      vec3 background = vec3(.2 + vPosition.x * sin(uCursor.x), .2 + vPosition.y * sin(uCursor.y), .2 + vPosition.x * sin(uTime));
+      
+      gl_FragColor = vec4(color, 1.) + vec4(background, .8) + vec4(.1 * uCursor.x, .1 * uCursor.y, z + .5, 1.);
+
+   }
+</script>
+
+
+<script>
+start_gl("canvas1", getStringFromScript('vs'), getStringFromScript('fs'));
+</script>
+
