@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'a%p-0+sycbb9fo65_j#s5j6*rw9$^4@g$teha8m_m1vvmo6gwb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'www.meghamadan.com', 'www.megha.tech',  'meghamadan.github.io']
 
 
 # Application definition
