@@ -1,0 +1,122 @@
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="/static/css/component.css" />
+<script src="/static/js/drawlib2.js"></script>
+<script src="/static/js/utility.js"></script>
+<script src="/static/js/matrix.js"></script>
+
+<body bgcolor=black>
+   <div id="div1">
+
+      <nav class = "cl-effect-21">
+         <a href="/graphics" class="active"> Back to Graphics Projects</a>
+      </nav>
+
+      <center>
+
+      <br><br><br><br>
+      <canvas id='canvas1' style="background-color: white;" width=500 height=500></canvas>
+      <p style="color: white;"><i> This is my work with bezier curves. More to be added soon.</i></p>
+
+   </center>
+</div>
+</body>
+
+<script>
+
+   var canvas;
+   
+   function hermite(A,B,C,D){
+      var a = 2*A - 2*B + C + D;
+      var b = -3*A +3*B -2*C - D;
+      var c = C;
+      var d = D;
+
+      return [a,b,c,d];
+   }
+
+   function bezier(A,B,C,D){
+      var a = -1*A + 3*B -3*C + D;
+      var b = 3*A -6*B +3*C;
+      var c = -3*A + 3*B;
+      var d = A;
+
+      return [a,b,c,d];
+   }
+
+   function cubic(t, t_vec) {
+      return (t_vec[0] * t * t * t) + (t_vec[1] * t * t) + (t_vec[2] * t) + t_vec[3];   
+   }
+
+
+   var matrix = new Matrix();
+   matrix.identity();
+
+   var pt0 = new Vector3(-1, 0, 0);
+   var pt1 = new Vector3( 1, 0, 0);
+   var tmp = new Vector3( 0, 0, 0);
+
+   var pix0 = new Vector3(0, 0, 0);
+   var pix1 = new Vector3(0, 0, 0);
+
+   function moveTo(p) {
+      pt0.set(p.x,p.y,p.z);
+      matrix.transform(pt0, tmp);
+      tmp.viewportTransform(width, height, pix0);
+      g.moveTo(pix0.x, pix0.y);
+   }
+
+   function lineTo(p) {
+      pt0.set(p.x, p.y, p.x);
+      matrix.transform(pt0, tmp);
+      tmp.viewportTransform(width, height, pix0);
+      g.lineTo(pix0.x, pix0.y);
+   }
+
+   function drawDot(x,y,z) {
+      g.beginPath();
+      moveTo(x,y,z);
+      lineTo(x,y,z + .001);
+      g.stroke();
+   }
+
+ 
+   var g;
+   var width;
+   var height;
+
+
+   canvas = initCanvas('canvas1');
+   canvas.update = function(_g) {
+      g = _g;
+      width = canvas.width;
+      height = canvas.height;
+      
+      g.lineJoin = 'round';
+      g.lineCap = 'round';
+
+
+
+      // OUTLINE AROUND CANVAS   
+      g.strokeStyle = 'black';
+      g.lineWidth = 1;
+      g.strokeRect(0,0,width,height);
+
+
+      var cx = bezier(100, 200, 100, 300);
+      var cy = bezier(100, 100, 200 + 50*Math.sin(time), 300);
+
+      g.beginPath();
+      g.lineWidth = 3;
+      g.moveTo(100, 100)
+      var step = 0.001;
+      for (var i = 0; i <= 1; i += step) {
+         g.lineTo(cubic(i, cx), cubic(i, cy));
+      }
+      g.stroke();
+
+
+   }  
+
+</script>
+
