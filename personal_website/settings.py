@@ -14,6 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_URL = 'http://meghamadan.com'
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +26,7 @@ SECRET_KEY = 'a%p-0+sycbb9fo65_j#s5j6*rw9$^4@g$teha8m_m1vvmo6gwb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [ 'www.meghamadan.com', 'www.megha.tech',  'meghamadan.github.io']
+ALLOWED_HOSTS = [ '*']
 
 
 # Application definition
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'personal_website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
