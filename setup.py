@@ -16,7 +16,7 @@ from __future__ import unicode_literals
 # Package meta-data.
 NAME = 'personal_website'
 DESCRIPTION = 'Megha MAdan\'s site'
-URL = 'https://meghamadan.github.io'
+URL = 'http://meghamadan.github.io'
 EMAIL = 'megha.madan@nyu.edu'
 AUTHOR = 'Megha Madan'
 
