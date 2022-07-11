@@ -1,18 +1,26 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+// import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdModalBasic } from './app.component';
+
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
+  declarations: [NgbdModalBasic],
+  exports: [NgbdModalBasic],
+  bootstrap: [NgbdModalBasic],
   providers: [],
-  bootstrap: [AppComponent]
+  // providers: [BsModalService]
 })
 export class AppModule { }
+
