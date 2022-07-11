@@ -24,7 +24,12 @@ export class NgbdModalBasic {
         keyboard : true
       }
     );
-  }
+
+    if(document.getElementById('modalImage')  != null) {
+      (<HTMLImageElement>document.getElementById('modalImage')).src = "https://www.w3schools.com/w3images/mac.jpg";
+    }
+
+  } 
 
   close() {
     this.modalService.dismissAll();
